@@ -1,10 +1,10 @@
 # MCC-2022
 This is my code to the MCC 2022 competition
 
-\n\nThis is my score to the competition:
-\nGrammar: 100/100
-\nAliens: 100/100
-\nMaze: 30/100
-\nCats' Birthday Cookies: 40/100
-\nCard Shark: 30/100
-\nLamp: 25/100
+This is my score to the competition:
+Grammar: 100/100
+Aliens: 100/100
+Maze: 30/100
+Cats' Birthday Cookies: 40/100
+Card Shark: 30/100
+Lamp: 25/100
