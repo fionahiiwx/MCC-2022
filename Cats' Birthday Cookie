@@ -1,0 +1,49 @@
+# Only works for task 1 and 2
+
+import itertools
+with open("C:/Users/fiona/Desktop/MCC/bday.txt") as f:
+    inp = f.readlines()
+top = inp[0].split(" ")
+N = int(top[0])
+S = int(top[1])
+Q = int(top[-1].replace("\n",""))
+inst = [list(inp[x].replace("\n","")) for x in range(1, (S+1))]
+friends = [int(x) for x in inp[-1].replace("\n","").split(" ")]
+
+def inst_A(grid):
+    grid = [grid[i].extend(grid[i]) for i in range(len(grid))]
+    return grid
+def inst_B(grid):
+    dict = {"p": "q",
+            "q": "p",
+            "b": "d",
+            "d": "b"}
+    for i in range(len(grid)):
+        flip = [dict[grid[i][j]] for j in range(len(grid[i]))]
+        grid[i].extend(flip)
+    return grid
+def inst_C(grid):
+    dict = {"p": "b",
+            "q": "d",
+            "b": "p",
+            "d": "q"}
+    for i in range(len(grid)):
+        flip = [dict[grid[i][j]] for j in range(len(grid[i]))]
+        grid.append(flip)
+    return grid
+
+ans = []
+for s in range(S):
+    grid = [["p"]]
+    for n in range(N):
+        if inst[s][n] == "A":
+            inst_A(grid)
+        elif inst[s][n] == "B":
+            inst_B(grid)
+        elif inst[s][n] == "C":
+            inst_C(grid)
+    comb_grid = list(itertools.chain.from_iterable(grid))
+    for q in range(Q):
+        ans.append(comb_grid[int(friends[q])-1])
+    print("".join(comb_grid))
+print("".join(ans))
