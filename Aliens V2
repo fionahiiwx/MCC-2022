@@ -1,0 +1,45 @@
+# Works for all task
+
+T = int(input("T: "))
+
+for i in range(T):
+    print("\nNo.", i+1)
+    nofcharacters = int(input("N: "))
+    one= list(input("A: "))
+    two = list(input("B: "))
+    t = [i for i, x in enumerate(one) if x == "T"]
+    f = [i for i, x in enumerate(one) if x == "F"]
+    b = 0
+    for a in range(nofcharacters):
+        if one[a] == "T":
+            if two[a] == "T":
+                if len(t) != 0:
+                    t.remove(t[0])
+                else:
+                    b=1
+                    print("NO")
+                    break
+            elif two[a] == "F":
+                if len(f) != 0:
+                    f.remove(f[0])
+                else:
+                    b = 1
+                    print("NO")
+                    break
+        elif one[a] == "F":
+            if two[a] == "T":
+                if len(f) != 0:
+                    f.remove(f[0])
+                else:
+                    b = 1
+                    print("NO")
+                    break
+            elif two[a] == "F":
+                if len(t) != 0:
+                    t.remove(t[0])
+                else:
+                    b=1
+                    print("NO")
+                    break
+    if b == 0:
+        print("YES")
