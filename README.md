@@ -1,7 +1,7 @@
 # MCC-2022
 This is my code to the MCC 2022 competition
 
-This is my score to the competition:
+## Score
 
 Grammar: 100/100
 
