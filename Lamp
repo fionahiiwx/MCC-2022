@@ -1,0 +1,50 @@
+# Only works for task 1 to 3
+
+with open("C:/Users/fiona/Desktop/MCC/lamp.txt") as f:
+    inp = f.readlines()
+import operator
+import numpy as np
+T = int(inp[0].replace("\n",""))
+N = []
+K = []
+P = []
+B = []
+i = 1
+for t in range(T):
+    n = inp[i].replace("\n","").split(" ")
+    N.append(int(n[0]))
+    K.append(int(n[1]))
+    P.append(list(map(int, inp[i+1].replace("\n","").split(" "))))
+    B.append(list(map(int, inp[i+2].replace("\n","").split(" "))))
+    i += 3
+
+def bright(num):
+    if num == 1:
+         return [1]
+    elif num == 2:
+        return [1,2,1]
+    else:
+        numbers = list(range(1,num+1))
+        return numbers + list(reversed(numbers[:-1]))
+
+tot_count = []
+
+for t in range(T):
+    high_list = list(map(sum, zip(P[t], B[t])))
+    low_list = list(map(operator.sub, P[t], B[t]))
+    highest, lowest = (max(high_list)-1), (min(low_list)+1)
+    hind, lind = (high_list.index((highest+1))), (low_list.index((lowest-1)))
+    num_line = [0 for x in range(lowest, highest+1)]
+    P_adjusted = list(map(lambda x : x + abs(lowest), P[t]))
+    for n in range(N[t]):
+        brightness = bright(B[t][n])
+        start = P_adjusted[n]-B[t][n]+1
+        end = P_adjusted[n]+B[t][n]
+        num_line[start:end] = list(map(sum,zip(num_line[start:end],brightness)))
+    tot_count.append(str(sum(map(lambda x:x>=K[t], num_line))))
+print("\n".join(tot_count))
+
+#a = [1,2,3,4,5]
+#z = [1,1,1]
+#a[1:4] = list(map(sum,zip(a[1:4],z)))
+#print(a)
