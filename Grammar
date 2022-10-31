@@ -1,0 +1,24 @@
+# Works for all task
+
+with open("C:/Users/fiona/Desktop/MCC/grammar.txt") as f:
+    N = f.readlines()
+
+def grammar(T, inp):
+    word = ["WE", "DONT", "KNOW", "THAT", "THEY"]
+    gram = {"WE": ["DONT", "KNOW"],
+            "THEY": ["DONT", "KNOW"],
+            "DONT": ["KNOW"],
+            "KNOW": ["WE", "THEY", "THAT"],
+            "THAT": ["WE", "THEY"]}
+    for i in range(len(inp)):
+        if inp[i] not in word:
+            return "NO"
+        if i == len(inp)-1:
+            return "YES"
+        if inp[i+1] not in gram[inp[i]]:
+            return "NO"
+ans = []
+for i in range(1,int(N[0])*2,2):
+    inp = N[i+1].replace("\n","").split(" ")
+    ans.append(grammar(N[i].replace("\n",""),inp))
+print("\n".join(ans))
