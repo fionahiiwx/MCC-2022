@@ -1,0 +1,52 @@
+# only works for task 1 to 3
+
+with open("C:/Users/fiona/Desktop/MCC/alien.txt") as f:
+    inp = f.readlines()
+import itertools
+from itertools import cycle
+T = int(inp[0].replace("\n",""))
+i = 1
+n = []
+a = []
+b = []
+for t in range(T):
+    n.append(int(inp[i].replace("\n","")))
+    a.append(inp[i+1].replace("\n",""))
+    b.append(inp[i+2].replace("\n",""))
+    i += 3
+
+def perm(n, a, b):
+    an = {i:a[i] for i in range(n)}
+    for p in itertools.permutations(range(n)):
+        yes = 0
+        for j in range(n):
+            if (an[p[j]] == b[j] and an[j] == "T") or\
+                    (an[p[j]] != b[j] and an[j] == "F"):
+                yes+=1
+        if yes == n:
+            return "YES"
+    return "NO"
+    
+ans = []
+for i in range(T):
+    if a[i][0] == "T" and len(set(list(a[i]))) == 1:
+        if b[i][0] == "T" and len(set(list(b[i]))) == 1:
+            ans.append("YES")
+        elif b[i][0] == "F" and len(set(list(b[i]))) == 1:
+            ans.append("NO")
+        elif b[i].count("F")<3 or b[i].count("T")<3:
+            ans.append("NO")
+        else:
+            ans.append(perm(n[i], a[i], b[i]))
+    elif a[i][0] == "F" and len(set(list(a[i]))) == 1:
+        if b[i][0] == "T" and len(set(list(b[i]))) == 1:
+            ans.append("YES")
+        elif a[i][0] == "F" and len(set(list(b[i]))) == 1:
+            ans.append("YES")
+        elif b[i].count("F")<3 or b[i].count("T")<3:
+            ans.append("NO")
+        else:
+            ans.append(perm(n[i], a[i], b[i]))
+    else:
+        ans.append(perm(n[i], a[i], b[i]))
+print("\n".join(ans))
