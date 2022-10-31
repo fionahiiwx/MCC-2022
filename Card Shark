@@ -1,0 +1,23 @@
+# only works for task 1 and 2
+
+with open("C:/Users/fiona/Desktop/MCC/card shark.txt") as f:
+    inp = f.readlines()
+
+import itertools
+T = int(inp[0].replace("\n",""))
+i = 1
+tot_ans = []
+def card(i, inp):
+    N = int(inp[i].replace("\n", ""))
+    M = [list(map(int, (x.replace("\n", "").split(" "))[1::])) for x in inp[(i+1):(i+N+1)]]
+    ans = 0
+    for m in itertools.permutations(M):
+        comb_M = list(itertools.chain.from_iterable(m))
+        score_1 = sum(comb_M[::2])
+        score_2 = sum(comb_M[1::2])
+        ans = max(ans, int(score_1 - score_2))
+    return str(ans), i+N+1
+for t in range(T):
+    a, i = card(i,inp)
+    tot_ans.append(a)
+print("\n".join(tot_ans))
